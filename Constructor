@@ -1,0 +1,249 @@
+/*
+A constructor is a special method in a class that is automatically called when an object of the class is created. It is used to initialize the object by assigning values to its properties or performing necessary setup.
+
+Key Features of Constructors
+✅ Same name as the class
+✅ No return type (not even void)
+✅ Automatically called when an object is created
+✅ Can be overloaded (multiple constructors with different parameters)
+✅ Used for initializing values
+*/
+
+
+// Default Constructor (Parameterless)- A default constructor is automatically provided by C# if no constructor is defined.
+
+using System;
+
+class Car
+{
+    public string Brand;
+    
+    // Default constructor
+    public Car()
+    {
+        Brand = "Toyota";
+        Console.WriteLine("Car object created.");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Car myCar = new Car();
+        Console.WriteLine($"Brand: {myCar.Brand}");  // Output: Brand: Toyota
+    }
+}
+
+/*
+Explanation
+The constructor Car() initializes the Brand field.
+When an object is created, the constructor executes automatically.
+
+*/
+
+
+// Parameterized Constructor- A parameterized constructor allows passing values at the time of object creation.
+
+class Person
+{
+    public string Name;
+    public int Age;
+
+    // Parameterized constructor
+    public Person(string name, int age)
+    {
+        Name = name;
+        Age = age;
+    }
+
+    public void Introduce()
+    {
+        Console.WriteLine($"Hi, I'm {Name} and I'm {Age} years old.");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Person person1 = new Person("Alice", 25);
+        person1.Introduce();  // Output: Hi, I'm Alice and I'm 25 years old.
+    }
+}
+
+/*
+Explanation
+The constructor Person(string, int) takes parameters to initialize the Name and Age.
+It avoids hardcoded values inside the class.
+*/
+
+// Constructor Overloading- You can define multiple constructors in the same class with different parameters.
+
+class Animal
+{
+    public string Name;
+    public int Age;
+
+    // Default constructor
+    public Animal()
+    {
+        Name = "Unknown";
+        Age = 0;
+    }
+
+    // Parameterized constructor
+    public Animal(string name, int age)
+    {
+        Name = name;
+        Age = age;
+    }
+
+    public void Describe()
+    {
+        Console.WriteLine($"{Name} is {Age} years old.");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Animal a1 = new Animal();  // Calls default constructor
+        a1.Describe();  // Output: Unknown is 0 years old.
+
+        Animal a2 = new Animal("Dog", 5);  // Calls parameterized constructor
+        a2.Describe();  // Output: Dog is 5 years old.
+    }
+}
+
+/*
+Explanation
+If no arguments are passed, the default constructor is used.
+If arguments are passed, the parameterized constructor is used.
+
+*/
+
+//Copy Constructor - A copy constructor creates a new object by copying values from an existing object.
+
+class Book
+{
+    public string Title;
+    public string Author;
+
+    // Parameterized constructor
+    public Book(string title, string author)
+    {
+        Title = title;
+        Author = author;
+    }
+
+    // Copy constructor
+    public Book(Book otherBook)
+    {
+        Title = otherBook.Title;
+        Author = otherBook.Author;
+    }
+
+    public void ShowDetails()
+    {
+        Console.WriteLine($"Title: {Title}, Author: {Author}");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Book book1 = new Book("C# Fundamentals", "John Doe");
+        Book book2 = new Book(book1); // Copying book1 into book2
+
+        book2.ShowDetails();  // Output: Title: C# Fundamentals, Author: John Doe
+    }
+}
+
+/*
+Explanation
+Book(Book otherBook) copies values from book1 to book2.
+This is useful when cloning objects.
+*/
+
+
+// Static Constructor- A static constructor initializes static members and is called only once per class (not per object).
+
+class Database
+{
+    public static string ConnectionString;
+
+    // Static constructor
+    static Database()
+    {
+        ConnectionString = "Server=127.0.0.1;Database=MyDB;";
+        Console.WriteLine("Static constructor called.");
+    }
+
+    public static void ShowConnection()
+    {
+        Console.WriteLine($"Connection: {ConnectionString}");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Database.ShowConnection();  // Calls static constructor automatically
+    }
+}
+
+/*
+Explanation
+static Database() initializes only static members.
+It runs once when the class is first accessed.
+
+*/
+
+// Private Constructor-  private constructor prevents direct object creation and is often used in Singleton patterns.
+
+// Private Constructor (Singleton Pattern)
+
+class Logger
+{
+    private static Logger instance;
+    
+    // Private constructor prevents direct instantiation
+    private Logger() {}
+
+    public static Logger GetInstance()
+    {
+        if (instance == null)
+            instance = new Logger();
+        return instance;
+    }
+
+    public void Log(string message)
+    {
+        Console.WriteLine($"Log: {message}");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Logger log1 = Logger.GetInstance();
+        log1.Log("System started."); // Output: Log: System started.
+    }
+}
+
+/*
+
+Conclusion
+🚀 Constructors are essential for initializing objects and ensuring proper setup.
+✅ Use parameterized constructors for flexibility.
+✅ Use static constructors for global initialization.
+✅ Use private constructors for Singleton patterns.
+
+*/
+
+
