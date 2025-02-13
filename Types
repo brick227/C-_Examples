@@ -1,0 +1,84 @@
+// Type is a class in the System namespace that provides information about a data type at runtime. It is commonly used for reflection, which allows you to inspect metadata, properties, methods, and other characteristics of objects.
+
+public abstract class Type : MemberInfo
+
+
+// Type objects = typeof()-  gets the Type object for a compile-time known type.
+
+Type t1 = typeof(int);
+console.WriteLine(t1); // Output: System.Int32
+
+// An Object is any class that is defined by you or by someone else in code. All classes, therefore, are able to be referenced by the basic Object type.
+
+
+//.GetType()- method gets the Type of a runtime object.
+
+int number = 42;
+Type t2 = number.GetType();
+Console.WriteLine(t2); // Output: System.Int32
+
+
+// Type for Reflection
+
+using System;
+using System.Reflection;
+
+class Program
+{
+    static void Main()
+    {
+        Type type = typeof(Person);
+
+        Console.WriteLine($"Class Name: {type.Name}");
+
+        Console.WriteLine("\nProperties:");
+        foreach (PropertyInfo prop in type.GetProperties())
+        {
+            Console.WriteLine($" - {prop.Name} : {prop.PropertyType}");
+        }
+
+        Console.WriteLine("\nMethods:");
+        foreach (MethodInfo method in type.GetMethods())
+        {
+            Console.WriteLine($" - {method.Name}");
+        }
+    }
+}
+
+public class Person
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+
+    public void Speak()
+    {
+        Console.WriteLine("Hello!");
+    }
+}
+
+/* Output Above
+
+Class Name: Person
+
+Properties:
+ - Name : System.String
+ - Age : System.Int32
+
+Methods:
+ - Speak
+ - ToString
+ - GetHashCode
+ - GetType
+ - Equals
+
+Use Cases of Type
+✅ Reflection – Inspecting types at runtime.
+✅ Dependency Injection – Getting metadata for dynamic object creation.
+✅ Serialization – Converting objects to JSON/XML.
+✅ Dynamic Type Checking – Ensuring type compatibility in runtime operatio
+
+
+*/
+
+
+
