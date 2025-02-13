@@ -1,0 +1,52 @@
+using System
+
+using System;
+
+
+/* An interface in C# defines a contract that a class must follow but does not provide any implementation. Interfaces are used to achieve abstraction and multiple inheritance, allowing for loose coupling and better code maintainability.*/
+
+/*
+Key Features of Interfaces
+✅ Defines behavior but not implementation
+✅ Cannot contain fields or constructors
+✅ Only method signatures, properties, events, or indexers
+✅ Supports multiple inheritance (a class can implement multiple interfaces)
+✅ All methods are public and abstract by default
+
+*/
+
+
+// Defining and Implementing an Interface
+
+using System;
+
+// Define an interface
+public interface IVehicle
+{
+    void StartEngine();
+    void StopEngine();
+}
+
+// Implement the interface in a class
+public class Car : IVehicle
+{
+    public void StartEngine()
+    {
+        Console.WriteLine("Car engine started.");
+    }
+
+    public void StopEngine()
+    {
+        Console.WriteLine("Car engine stopped.");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        IVehicle myCar = new Car();
+        myCar.StartEngine();  // Output: Car engine started.
+        myCar.StopEngine();   // Output: Car engine stopped.
+    }
+}
