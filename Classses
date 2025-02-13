@@ -1,0 +1,268 @@
+//A class is code that is grouped together to create a well-defined object with state.
+
+/*
+
+A class in C# is a blueprint for creating objects. It defines the attributes (fields, properties) and behavior (methods, events) that an object should have.
+
+Key Features of a Class
+✅ Encapsulation – Bundles data and methods together.
+✅ Reusability – Can create multiple instances (objects).
+✅ Abstraction – Hides implementation details and exposes only necessary functionality.
+✅ Inheritance – Allows one class to inherit from another.
+✅ Polymorphism – Enables different classes to be used interchangeably.
+
+
+*/
+
+
+//Basic Class Example
+
+using System;
+
+class Car
+{
+    // Fields (private variables)
+    private string brand;
+    private int speed;
+
+    // Constructor (Initializes the object)
+    public Car(string brand, int speed)
+    {
+        this.brand = brand;
+        this.speed = speed;
+    }
+
+    // Method (Behavior)
+    public void Drive()
+    {
+        Console.WriteLine($"{brand} is driving at {speed} mph.");
+    }
+}
+
+// Main Program
+class Program
+{
+    static void Main()
+    {
+        // Creating an object (instance of Car)
+        Car myCar = new Car("Toyota", 60);
+        myCar.Drive();  // Output: Toyota is driving at 60 mph.
+    }
+}
+
+
+/*
+Explanation
+Car is a class with fields (brand, speed) and a method (Drive()).
+Car has a constructor to initialize values when an object is created.
+In Main(), an instance of Car (myCar) is created and used.
+
+
+*/
+
+
+// Class with Properties (Encapsulation)
+
+
+class Person
+{
+    // Auto-implemented properties
+    public string Name { get; set; }
+    public int Age { get; set; }
+
+    // Constructor
+    public Person(string name, int age)
+    {
+        Name = name;
+        Age = age;
+    }
+
+    // Method
+    public void Introduce()
+    {
+        Console.WriteLine($"Hi, I'm {Name} and I'm {Age} years old.");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Person person1 = new Person("Alice", 25);
+        person1.Introduce();  // Output: Hi, I'm Alice and I'm 25 years old.
+    }
+}
+
+/*
+Key Features
+✅ Properties (Name, Age) encapsulate fields.
+✅ Auto-implemented properties eliminate the need for explicit fields.
+✅ Constructor initializes values at object creation.
+
+
+*/
+
+
+//Class with Inheritance
+
+// Base class
+class Animal
+{
+    public string Name { get; set; }
+
+    public Animal(string name)
+    {
+        Name = name;
+    }
+
+    public void Speak()
+    {
+        Console.WriteLine($"{Name} makes a sound.");
+    }
+}
+
+// Derived class (inherits from Animal)
+class Dog : Animal
+{
+    public Dog(string name) : base(name) {}
+
+    public void Bark()
+    {
+        Console.WriteLine($"{Name} barks: Woof! Woof!");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Dog myDog = new Dog("Buddy");
+        myDog.Speak();  // Output: Buddy makes a sound.
+        myDog.Bark();   // Output: Buddy barks: Woof! Woof!
+    }
+}
+
+/*
+Explanation
+✅ Dog inherits from Animal using : Animal.
+✅ The base(name) calls the parent constructor.
+✅ Dog inherits Speak() and adds a Bark() method.
+
+*/
+
+//Class with Polymorphism (Method Overriding)
+
+class Animal
+{
+    public virtual void MakeSound()
+    {
+        Console.WriteLine("Animal makes a sound.");
+    }
+}
+
+class Cat : Animal
+{
+    public override void MakeSound()
+    {
+        Console.WriteLine("Cat meows.");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Animal myAnimal = new Animal();
+        myAnimal.MakeSound();  // Output: Animal makes a sound.
+
+        Animal myCat = new Cat();
+        myCat.MakeSound();  // Output: Cat meows.
+    }
+}
+
+/*
+Explanation
+✅ virtual in the base class allows method overriding.
+✅ override in the derived class modifies behavior.
+✅ Demonstrates polymorphism: Animal reference calls Cat's method.
+
+*/
+
+
+// Class with Abstract Methods
+
+
+abstract class Shape
+{
+    public abstract double GetArea();
+}
+
+class Circle : Shape
+{
+    private double radius;
+
+    public Circle(double radius)
+    {
+        this.radius = radius;
+    }
+
+    public override double GetArea()
+    {
+        return Math.PI * radius * radius;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Shape myCircle = new Circle(5);
+        Console.WriteLine("Area: " + myCircle.GetArea());  // Output: Area: 78.5398
+    }
+}
+
+
+/*
+Explanation
+✅ abstract class Shape cannot be instantiated.
+✅ GetArea() must be overridden in derived classes.
+✅ Implements abstraction, ensuring all shapes define an area.
+*/
+
+
+//Class with Interfaces
+
+interface IVehicle
+{
+    void Drive();
+}
+
+class Car : IVehicle
+{
+    public void Drive()
+    {
+        Console.WriteLine("Car is driving.");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        IVehicle myCar = new Car();
+        myCar.Drive();  // Output: Car is driving.
+    }
+}
+
+/*
+Explanation
+✅ Car implements IVehicle.
+✅ Interface ensures Drive() is defined.
+✅ Loose coupling allows flexibility.
+*/
+
+/*
+📌 Classes are the foundation of OOP in C#, enabling encapsulation, inheritance, polymorphism, and abstraction.
+📌 Best practices include using constructors, properties, inheritance, interfaces, and method overriding.
+*/
+
