@@ -1,0 +1,110 @@
+// Constructor Injection is a technique in Dependency Injection (DI) where dependencies are provided to a class via its constructor, rather than being instantiated inside the class. This approach promotes loose coupling, testability, and maintainability.
+
+
+/* Why Use Constructor Injection?
+✅ Reduces tight coupling – The class does not create its dependencies; they are passed in.
+✅ Improves testability – Makes unit testing easier using mock dependencies.
+✅ Enhances maintainability – Dependencies can be easily swapped without modifying the class.*/
+
+
+// Without Constructor Injection (Bad Practice)
+
+public class EmailService
+{
+    public void SendEmail(string message)
+    {
+        Console.WriteLine("Email sent: " + message);
+    }
+}
+
+public class NotificationService
+{
+    private EmailService _emailService = new EmailService(); // Tight coupling
+
+    public void Notify(string message)
+    {
+        _emailService.SendEmail(message);
+    }
+}
+
+/*  Problem:
+NotificationService is tightly coupled to EmailService, making it difficult to replace or test.
+*/
+
+// With Constructor Injection (Good Practice)
+
+public interface IEmailService
+{
+    void SendEmail(string message);
+}
+
+public class EmailService : IEmailService
+{
+    public void SendEmail(string message)
+    {
+        Console.WriteLine("Email sent: " + message);
+    }
+}
+
+public class NotificationService
+{
+    private readonly IEmailService _emailService;
+
+    // Constructor Injection
+    public NotificationService(IEmailService emailService)
+    {
+        _emailService = emailService;
+    }
+
+    public void Notify(string message)
+    {
+        _emailService.SendEmail(message);
+    }
+}
+
+// Usage
+class Program
+{
+    static void Main()
+    {
+        IEmailService emailService = new EmailService();
+        NotificationService notification = new NotificationService(emailService);
+        notification.Notify("Hello, Dependency Injection!");
+    }
+}
+
+/* ✅ Advantages of Constructor Injection:
+
+Loose Coupling: NotificationService depends on an abstraction (IEmailService), not a concrete class.
+Easier Testing: You can pass a mock implementation for IEmailService in unit tests.
+Extensibility: Easily swap EmailService with other implementations (e.g., SmsService, PushNotificationService).*/
+
+
+// Constructor Injection with built-in Dependency Injection (DI) containers.
+
+public class Startup
+{
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddScoped<IEmailService, EmailService>();
+        services.AddScoped<NotificationService>();
+    }
+}
+//  DI container injects IEmailService automatically into NotificationService.
+
+/*
+
+When to Use Constructor Injection?
+✔ Use Constructor Injection when the dependency is mandatory for the class to function.
+✔ Helps enforce Dependency Inversion Principle (DIP) from SOLID principles.
+✔ Works well with Dependency Injection containers (e.g., ASP.NET Core DI, Autofac, Unity).
+
+Conclusion
+🚀 Constructor Injection is the most recommended approach in Dependency Injection as it:
+
+Promotes loose coupling
+Improves testability
+Works well with DI containers
+Follows SOLID principles for better software design
+
+*/
